@@ -1,13 +1,18 @@
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",             // For rotens HTML-fil
-    "./src/**/*.{js,css,html}",     // Alle JavaScript- og HTML-filer i src-mappen
-    "./public/**/*.{js,html}"   // Eventuelle filer i public-mappen, hvis de bruker Tailwind
+    "./index.html",  
+    "./**/*.html",
+    "./src/**/*.{js,css,html}",
+    "./public/**/*.{js,html}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
-}
+};

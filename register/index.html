@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,11 +54,10 @@
               >Epost</label
             >
             <input
-              id="email"
+              id="emailRegister"
               type="email"
               name="email"
               required
-              pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
               title="Bruk en gyldig stud.noroff.no adresse"
               class="w-full px-4 py-2 border border-[#3C655D] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3C655D]"
             />
@@ -74,12 +73,11 @@
               name="password"
               title="Minst 8 tegn langt"
               required
-              minlength="8"
               class="w-full px-4 py-2 border border-[#3C655D] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3C655D]"
             />
           </div>
 
-          <p id="alert-login" class="mt-4 text-sm text-red-500 text-center"></p>
+          <p id="alert-register" class="mt-4 text-sm text-red-500 text-center"></p>
 
           <button
             type="submit"

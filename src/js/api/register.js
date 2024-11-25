@@ -1,6 +1,9 @@
 import { API_REGISTER } from "/src/js/ui/constants";
+import { redirectIfLoggedIn } from "/src/js/ui/isLoggedIn";
 
-const alertLogin = document.getElementById("alert-login");
+redirectIfLoggedIn();
+
+const alertRegister = document.getElementById("alert-register");
 
 export async function postRegisterToApi(name, url, email, password){
     try {
@@ -30,13 +33,26 @@ export async function postRegisterToApi(name, url, email, password){
 
       window.location = "/login/";
     } else {
+        
         const errorData = await response.json();
-        alertLogin.innerText = errorData.errors[0].message;
+
+        if(errorData.errors[0].message == "Image URL must be valid URL"){
+            alertRegister.innerText = "Bilde URL må være en gyldig URL"
+        } else if(errorData.errors[0].message.includes("Image is not accessible")){
+            alertRegister.innerText = "Bilde er ikke tilgjengelig"
+        } else if(errorData.errors[0].message == "Profile already exists"){
+            alertRegister.innerText = "Brukeren finnes allerede"
+        } else {
+            alertRegister.innerText = "Klarer ikke oprette bruker";
+            //alertRegister.innerText = errorData.errors[0].message;
+        }
+        
+        
       
     }
   } catch (error) {
     console.error(error.message);
-    alertLogin.innerText = "Kan ikke koble til serveren. Vennligst prøv igjen senere";
+    alertRegister.innerText = "Kan ikke koble til serveren. Vennligst prøv igjen senere";
     
   }
 }

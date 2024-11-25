@@ -7,7 +7,7 @@ export function createHeader() {
        
         <a href="/" class="hidden md:block">
           <img
-            src="/src/img/logo-full.svg"
+            src="/images/logo-full.svg"
             alt="logo-full"
             class="w-64 h-auto"
           />
@@ -16,18 +16,14 @@ export function createHeader() {
   
         <a href="/" class="block md:hidden">
           <img
-            src="/src/img/logo-simpel.svg"
+            src="/images/logo-simpel.svg"
             alt="logo-simpel"
             class="w-14 h-auto"
           />
         </a>
         
-        <a
-          href="/minside/"
-          class="text-[#3c655d] text-xl md:text-2xl font-medium hover:underline"
-        >
-          Min side
-        </a>
+        <div id="min-side-btn">
+        </div>
       </div>
     </header>
     `;

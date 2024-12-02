@@ -11,19 +11,38 @@
     <title>Markedet</title>
   </head>
   <body class="bg-[#F6FFFB]">
-    <form action="" class="flex justify-center mt-8">
+    <div class="flex justify-center mt-8">
       <input
         id="search"
         type="text"
         placeholder="Søk"
         class="w-[90%] max-w-sm px-4 py-2 border-2 border-[#3C655D] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3C655D] placeholder-gray-500 text-gray-900"
       />
-    </form>
+    </div>
 
-    <div id="listings-output" class="max-w-screen-xl mx-auto mt-8 px-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      <p>Laster...</p>
+    <div
+      id="listings-output"
+      class="max-w-screen-xl mx-auto my-8 px-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+    >
+      <p class="text-center">Laster...</p>
+    </div>
 
-      
+    <div id="pageNav" class="flex items-center justify-center space-x-4 mt-8">
+      <button
+        id="forrige"
+        class="bg-[#3C655D] text-white py-2 px-4 rounded-lg font-medium hover:bg-[#2e5149] transition-colors"
+      >
+        Forrige
+      </button>
+
+      <p id="current-page" class="text-[#3C655D] text-lg font-semibold"></p>
+
+      <button
+        id="neste"
+        class="bg-[#3C655D] text-white py-2 px-4 rounded-lg font-medium hover:bg-[#2e5149] transition-colors"
+      >
+        Neste
+      </button>
     </div>
   </body>
 </html>

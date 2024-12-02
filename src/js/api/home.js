@@ -2,18 +2,14 @@ import { API_ALL_LISTINGS } from "/src/js/ui/constants";
 
 const listingOutput = document.getElementById("listings-output")
 
-export async function getAllListingsFromApi() {
+
+export async function getAllListingsFromApi(page) {
     try {
-        const response = await fetch(API_ALL_LISTINGS);
-
+      const URL = `${API_ALL_LISTINGS}?sort=created&sortOrder=desc&limit=12&page=${page}&_bids=true&_active=true`
+        const response = await fetch(URL);
         const data = await response.json();
-
         const api = data.data;
-
-
         listListings(api);
-
-        
     } catch (error) {
         listingOutput.innerHTML = "";
         listingOutput.innerHTML = "<p>Kan ikke koble til serveren. Vennligst prøv igjen senere</p>";
@@ -21,17 +17,26 @@ export async function getAllListingsFromApi() {
     }
 }
 
-
-
+export async function getSearchedListingsFromApi(query,page) {
+  try {
+    const URL = `${API_ALL_LISTINGS}search?q=<${query}>`
+      const response = await fetch(URL);
+      const data = await response.json();
+      const api = data.data;
+      listListings(api);
+  } catch (error) {
+      listingOutput.innerHTML = "";
+      listingOutput.innerHTML = "<p>Kan ikke koble til serveren. Vennligst prøv igjen senere</p>";
+      console.error(error.message);
+  }
+}
 
 
 function listListings(api) {
     listingOutput.innerHTML = "";
     let container = "";
-    //console.log(api[0].media[0].url);
-    
 
-    for (let i = 0; i < 12 && i < api.length; i++) {
+    for (let i = 0; i < api.length; i++) {
 
       let mediaUrl = api[i].media[0] && api[i].media[0].url 
           ? api[i].media[0].url 
@@ -41,12 +46,24 @@ function listListings(api) {
           ? api[i].media[0].alt 
           : 'Placeholder image';
 
+          const endsAtDate = new Date(api[i].endsAt);
+        const hours = String(endsAtDate.getUTCHours()).padStart(2, '0');
+        const minutes = String(endsAtDate.getUTCMinutes()).padStart(2, '0');
+        const day = String(endsAtDate.getUTCDate()).padStart(2, '0');
+        const month = String(endsAtDate.getUTCMonth() + 1).padStart(2, '0');
+        const year = endsAtDate.getUTCFullYear();
 
+        const formattedTime = `${hours}:${minutes}`;
+        const formattedDate = `${day}.${month}.${year}`;
+
+        const bids = api[i].bids[0] && api[i].bids[0].amount
+            ? api[i].bids[0].amount
+            : 'Ingen bud';
 
         container += `
        <a
     href="/singleListing/?id=${api[i].id}"
-    class="w-full max-w-md mx-auto bg-[#C9E9DA] rounded-lg shadow-md overflow-hidden"
+    class="w-full max-w-md mx-auto bg-[#C9E9DA] rounded-lg shadow-lg overflow-hidden"
   >
     <!-- Product Image -->
     <img
@@ -62,15 +79,16 @@ function listListings(api) {
 
       <div class="flex justify-between mt-4">
         <!-- Ends At -->
-        <div class="text-left">
+        <div class="text-center">
           <p class="text-[#3C655D] text-sm font-semibold">Avslutter</p>
-          <p class="text-black text-sm font-medium">${api[i].endsAt}</p>
+          <p class="text-black text-sm font-medium">${formattedTime}</p>
+          <p class="text-black text-sm font-medium">${formattedDate}</p>
         </div>
 
         <!-- Bid -->
-        <div class="text-right">
+        <div class="text-center">
           <p class="text-[#3C655D] text-sm font-semibold">Bud</p>
-          <p class="text-black text-sm font-medium">10</p>
+          <p class="text-black text-sm font-medium">${bids}</p>
         </div>
       </div>
     </div>
@@ -79,9 +97,10 @@ function listListings(api) {
         `;
     }
     
-console.log(container)
     listingOutput.innerHTML = container;
 }
+
+
 
 
 

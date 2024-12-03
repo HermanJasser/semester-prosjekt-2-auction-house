@@ -55,6 +55,10 @@ const searchInput = document.getElementById("search");
 
 searchInput.addEventListener("input", () => {
     page = 1;
+    currentPage.innerText = "";
+    currentPage.innerText = page;
+    checkIfPageIsOne()
+    
     const query = searchInput.value.trim();
     console.log(query);
   

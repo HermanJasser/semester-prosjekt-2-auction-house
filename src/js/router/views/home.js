@@ -7,6 +7,7 @@ const currentPage = document.getElementById("current-page");
 currentPage.innerText = page;
 
 
+
 getAllListingsFromApi(page);
 checkIfPageIsOne()
 

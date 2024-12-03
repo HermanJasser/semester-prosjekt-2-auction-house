@@ -64,6 +64,7 @@ export async function getSearchedListingsFromApi(query,page) {
 function listListings(api) {
     listingOutput.innerHTML = "";
     let container = "";
+    console.log(api);
 
     for (let i = 0; i < api.length; i++) {
 
@@ -85,9 +86,15 @@ function listListings(api) {
         const formattedTime = `${hours}:${minutes}`;
         const formattedDate = `${day}.${month}.${year}`;
 
-        const bids = api[i].bids[0] && api[i].bids[0].amount
-            ? api[i].bids[0].amount
-            : 'Ingen bud';
+        function getLastBid(bids) {
+          if (!bids || bids.length === 0) {
+              return 'Ingen bud'; 
+          }
+          return bids[bids.length - 1].amount; 
+      }
+
+      const bids = getLastBid(api[i].bids);
+      //console.log(bids);
 
         container += `
        <a
@@ -98,6 +105,7 @@ function listListings(api) {
     <img
       src="${mediaUrl}"
       alt="${mediaAlt}"
+      onerror="this.src='https://raw.githubusercontent.com/HermanJasser/folder-for-images/3fed7422fa0abc67ac78fbedf6bf1c87f61b47ea/img/Placeholder-_-Glossary.svg';"
       class="w-full h-[231px] object-cover"
     />
 

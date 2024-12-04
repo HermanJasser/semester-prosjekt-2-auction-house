@@ -39,13 +39,13 @@ function listSingleListing(api) {
     singleListingOutput.innerHTML = "";
 
     singleListingOutput.innerHTML = `
-        <div id="image-gallery" class="relative overflow-hidden ">
+        <div id="image-gallery" class="relative overflow-hidden mb-4">
             <div id="slider" class="flex transition-transform duration-500"></div>
-            <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 text-black px-2 py-1 rounded-md z-10 hover:bg-gray-400">←</button>
-            <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 text-black px-2 py-1 rounded-md z-10 hover:bg-gray-400">→</button>
+            <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#3C655D] text-white w-12 h-12 text-3xl rounded-full z-10 hover:bg-[#2E5149]"><</button>
+            <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#3C655D] text-white w-12 h-12 text-3xl rounded-full z-10 hover:bg-[#2E5149]">></button>
             <div id="slider-indicator" class="absolute bottom-2 right-2 bg-white px-3 py-1 rounded-md text-sm font-bold shadow-md"></div>
         </div>
-        <h1 class="text-3xl md:text-4xl font-bold my-2">${api.title}</h1>
+        <h1 class="text-3xl md:text-4xl font-bold my-2 mb-8">${api.title}</h1>
         <div class="p-4 my-4 items-start space-y-2 bg-[#C9E9DA] rounded-lg shadow-lg">
             <div>
                 <p class="text-[#3C655D] text-lg font-semibold">Bud</p>
@@ -60,7 +60,7 @@ function listSingleListing(api) {
                 <p class="text-[#000] font-medium text-lg">${formattedDate}</p>
             </div>
         </div>
-        <button class="bg-[#3C655D] text-white py-2 px-6 rounded-lg font-medium hover:bg-[#2E5149] transition-colors mx-auto block">
+        <button class="bg-[#3C655D] text-white py-2 px-6 my-8 rounded-lg font-medium hover:bg-[#2E5149] transition-colors mx-auto block">
             Gi bud
         </button>
         <p class="text-[#3C655D] text-lg font-semibold">Beskrivelse</p>
@@ -74,6 +74,7 @@ function listSingleListing(api) {
         const imgElement = document.createElement('img');
         imgElement.src = 'https://raw.githubusercontent.com/HermanJasser/folder-for-images/3fed7422fa0abc67ac78fbedf6bf1c87f61b47ea/img/Placeholder-_-Glossary.svg';
         imgElement.alt = 'placeholder image';
+        imgElement.className = 'w-full h-[400px] object-cover flex-shrink-0 md:h-[600px] lg:h-[700px]';
         gallery.appendChild(imgElement);
     } else {
         media.forEach((image) => {
@@ -83,7 +84,7 @@ function listSingleListing(api) {
             imgElement.onerror = function () {
                 this.src = 'https://raw.githubusercontent.com/HermanJasser/folder-for-images/3fed7422fa0abc67ac78fbedf6bf1c87f61b47ea/img/Placeholder-_-Glossary.svg';
             };
-            imgElement.className = 'w-full h-[300px] object-cover flex-shrink-0';
+            imgElement.className = 'w-full h-[400px] object-cover flex-shrink-0 md:h-[600px] lg:h-[700px]';
             gallery.appendChild(imgElement);
         });
     }

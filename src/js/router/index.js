@@ -15,7 +15,10 @@ export default async function router(pathname = window.location.pathname) {
       case "/minside/nyannonse/":
         await import("./views/newPost.js");
         break;
-      case "/singleListing/":
+      case "/minside/redigerprofil/":
+        await import("./views/editProfile.js/");
+        break;
+      case "/enkelpost/":
         await import("./views/singleListing.js/");
         break;
       default:

@@ -1,4 +1,7 @@
 import {postRegisterToApi} from "/src/js/api/register";
+import { redirectIfLoggedIn } from "/src/js/ui/isLoggedIn";
+
+redirectIfLoggedIn();
 
 const registerForm = document.getElementById("register");
 const alertRegister = document.getElementById("alert-register");

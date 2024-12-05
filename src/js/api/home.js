@@ -98,7 +98,7 @@ function listListings(api) {
 
         container += `
        <a
-    href="/singleListing/?id=${api[i].id}"
+    href="/enkelpost/?id=${api[i].id}"
     class="w-full max-w-md mx-auto bg-[#C9E9DA] rounded-lg shadow-lg overflow-hidden"
   >
     <!-- Product Image -->

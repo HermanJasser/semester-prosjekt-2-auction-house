@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/app.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Min side</title>
+  </head>
+  <body class="bg-[#F6FFFB]">
+    <main>
+      <div
+        id="profil-info"
+        class="bg-[#F6FFFB] text-center py-8 px-4 rounded-lg max-w-md mx-auto space-y-4"
+      >
+        <p>Laster...</p>
+      </div>
+
+      <div class="flex justify-center gap-4 items-center mt-4">
+        <a
+          id="edit-profile-btn"
+          href="/minside/redigerprofil/"
+          class="border border-[#3C655D] text-[#3C655D] py-1 px-4 rounded-lg text-md font-medium hover:bg-[#3C655D] hover:text-white transition-colors"
+        >
+          Rediger profil
+        </a>
+
+        <button
+          id="log-out-btn"
+          class="text-[#3C655D] text-md font-medium hover:underline"
+        >
+          Logg ut
+        </button>
+      </div>
+
+      <div
+        id="credit-available"
+        class="flex justify-between items-center py-2 rounded-lg mt-4 w-[90%] max-w-xs mx-auto"
+      >
+        <p>Laster...</p>
+      </div>
+
+      <a
+        id="new-listing-btn"
+        href="/minside/nyannonse/"
+        class="block bg-[#3C655D] text-white py-2 px-4 md:px-8 rounded-lg font-medium hover:bg-[#2E5149] transition-colors mt-4 mx-auto text-center w-[90%] max-w-xs"
+      >
+        Ny annonse
+      </a>
+
+      <h1 class="text-center text-xl md:text-2xl font-bold mt-8">
+        Mine Annonser
+      </h1>
+      <div id="mine-annonser" class="mt-4"></div>
+    </main>
+  </body>
+</html>

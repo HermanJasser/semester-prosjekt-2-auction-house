@@ -1,7 +1,5 @@
 import { API_LOGIN } from "/src/js/ui/constants";
-import { redirectIfLoggedIn } from "/src/js/ui/isLoggedIn";
 
-redirectIfLoggedIn();
 
 const loginAlert = document.getElementById("alert-login");
 //console.log(loginAlert)

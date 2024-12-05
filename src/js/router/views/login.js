@@ -1,4 +1,7 @@
 import {postLoginToApi} from "/src/js/api/login";
+import { redirectIfLoggedIn } from "/src/js/ui/isLoggedIn";
+
+redirectIfLoggedIn();
 
 const loginForm = document.getElementById("login");
 const loginAlert = document.getElementById("alert-login");

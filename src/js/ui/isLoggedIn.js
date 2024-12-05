@@ -6,7 +6,7 @@ export function redirectIfLoggedIn() {
 
   
 
-  export function isLoggedIn() {
+  export function myPageBtnIfLoggedIn() {
 
     const minSideBtn = document.getElementById("min-side-btn")
 

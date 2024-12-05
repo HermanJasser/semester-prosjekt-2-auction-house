@@ -6,8 +6,8 @@ await router(window.location.pathname);
 
 import { createHeader } from './js/ui/header.js';
 import { createFooter } from './js/ui/footer.js';
-import { isLoggedIn } from './js/ui/isLoggedIn.js';
+import { myPageBtnIfLoggedIn } from './js/ui/isLoggedIn.js';
 
 createHeader();
-isLoggedIn()
+myPageBtnIfLoggedIn()
 createFooter();

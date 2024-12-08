@@ -35,7 +35,7 @@ export async function postListingToApi(url, title, endsAt, desc) {
 
         console.log("Failed to post listing");
 
-        //alertNewListing.innerText = "Klarer ikke poste annonsen";
+        alertNewListing.innerText = "Klarer ikke poste annonsen";
         
         
       
@@ -43,6 +43,7 @@ export async function postListingToApi(url, title, endsAt, desc) {
   } catch (error) {
     console.error(error.message);
     console.error("Failed to post listing");
+    alertNewListing.innerText = "Klarer ikke poste annonsen";
     
     
   }

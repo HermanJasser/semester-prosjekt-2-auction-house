@@ -91,7 +91,7 @@ function listMyPosts(api){
 
     myListingsCont.innerHTML = "";
     let container = "";
-    console.log(api);
+   // console.log(api);
 
     for (let i = 0; i < api.length; i++) {
 
@@ -121,7 +121,7 @@ function listMyPosts(api){
       }
 
       const bids = getLastBid(api[i].bids);
-      console.log(bids);
+     // console.log(bids);
 
         container += `
        <a

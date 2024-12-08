@@ -1,4 +1,5 @@
 import { API_KEY, API_ALL_PROFILES } from "/src/js/ui/constants";
+import { isValidImageUrl } from "/src/js/ui/checkImg";
 
 const profilInfoEdit = document.getElementById("profil-info-edit");
 
@@ -103,11 +104,3 @@ export async function updateProfile() {
     }
 }
 
-function isValidImageUrl(url) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = url;
-    });
-}

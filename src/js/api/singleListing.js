@@ -1,5 +1,6 @@
-import { API_ALL_LISTINGS, API_KEY } from "../ui/constants";
+import { API_ALL_LISTINGS, API_KEY, API_ALL_PROFILES } from "../ui/constants";
 import { id } from "/src/js/router/views/singleListing";
+
 const singleListingOutput = document.getElementById("single-listing-output");
 
 
@@ -9,8 +10,12 @@ export async function getSingleListingFromApi(id) {
         const data = await response.json();
         const postsApi = data.data;
         listSingleListing(postsApi);
-        //console.log(postsApi);
+        console.log(postsApi);
         addEditDeleteButtons(postsApi);
+
+        addListnerToBidButton()
+
+        
 
       
     } catch (error) {
@@ -66,9 +71,11 @@ function listSingleListing(api) {
                 <p class="text-[#000] font-medium text-lg">${formattedDate}</p>
             </div>
         </div>
-        <button class="bg-[#3C655D] text-white py-2 px-6 my-8 rounded-lg font-medium hover:bg-[#2E5149] transition-colors mx-auto block">
+        <div id="bid-btn-cont">
+        <button id="bid-btn" class="bg-[#3C655D] text-white py-2 px-6 my-8 rounded-lg font-medium hover:bg-[#2E5149] transition-colors mx-auto block">
             Gi bud
-        </button>
+        </button></div>
+        
         <p class="text-[#3C655D] text-lg font-semibold">Beskrivelse</p>
         <p class="text-[#000] text-lg leading-relaxed">${api.description}</p>
         <div id="toast-message" class="hidden fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow-md">
@@ -150,8 +157,12 @@ function addEditDeleteButtons(api) {
                 showNotDeletedNotification()
                 return;
             }
-            
+
+
+
         };
+        const bidBtn = document.getElementById('bid-btn');
+        bidBtn.classList.add("hidden");
 
         container.appendChild(editButton);
         container.appendChild(deleteButton);
@@ -212,3 +223,138 @@ async function deleteListing() {
             toastMessage.classList.add("hidden");
         }, 5000);
     }
+
+
+    function addListnerToBidButton() {
+        const bidBtn = document.getElementById('bid-btn');
+            bidBtn.addEventListener("click", async () => {
+
+               
+
+                const myCredits = await getCreditAmount();
+               // console.log(myCredits); 
+
+                
+
+                const creditsAvailable = document.createElement('h2');
+                creditsAvailable.textContent = `Disponibel kreditt: ${myCredits}`;
+                creditsAvailable.classList.add('text-black', 'text-lg', 'font-semibold', 'mb-4', 'text-center');
+
+                const bidDiv = document.createElement('div');
+                bidDiv.classList.add('w-96', 'bg-white', 'p-8', 'rounded-lg', 'shadow-lg', 'fixed', 'top-1/2', 'left-1/2', 'transform', '-translate-x-1/2', '-translate-y-1/2', 'z-100');
+                
+                const bidInput = document.createElement('input');
+                bidInput.classList.add('w-full', 'px-4', 'py-2', 'border', 'border-[#3C655D]', 'rounded-lg', 'focus:outline-none', 'focus:ring-2', 'focus:ring-[#3C655D]', 'my-4');
+        
+                const submitBtn = document.createElement('button');
+                submitBtn.textContent = 'Legg inn bud';
+                submitBtn.classList.add('bg-[#3C655D]', 'text-white', 'py-2', 'px-6', 'rounded-lg', 'font-medium', 'hover:bg-[#2E5149]', 'transition-colors', 'mx-auto', 'block');
+
+                const alertBidError = document.createElement('p');
+                alertBidError.classList.add('text-red-500', 'text-sm', 'font-semibold', 'text-center', 'mb-4', 'hidden');
+
+                bidDiv.appendChild(creditsAvailable);
+                bidDiv.appendChild(bidInput);
+                bidDiv.appendChild(alertBidError);
+                bidDiv.appendChild(submitBtn);
+                
+        
+                document.body.appendChild(bidDiv);
+        
+                // Legg til en event listener for å håndtere budinnleggelse
+                submitBtn.addEventListener('click', () => {
+                    const bidValue = Number(bidInput.value);
+                
+                    console.log(bidValue);
+                    if (bidValue > myCredits) {
+                        alertBidError.textContent = 'Du har ikke nok kreditt til å legge inn dette budet';
+                        alertBidError.classList.remove('hidden');
+                        return;
+                    } else{
+                        putBidOnListing(bidValue , alertBidError);
+                    }
+        
+                    // Fjern div-en etter at budet er lagt inn
+                });
+            });
+    }
+
+    export async function getCreditAmount() {
+        try {
+            const options = {
+                headers: {
+                    Authorization: `Bearer ${localStorage.token}`,
+                    "X-Noroff-API-Key": API_KEY,
+                    "Content-Type": "application/json",
+                },
+            };
+
+           
+        
+    
+            const response = await fetch(`${API_ALL_PROFILES}/${localStorage.username}`, options);
+    
+            if (!response.ok) throw new Error(`HTTP error! ${response.status}`);
+    
+            const data = await response.json();
+            const api = data.data;
+            //console.log(api.credits);
+            return api.credits;
+        } catch (error) {
+            console.error("Error message: " + error);
+            
+    
+        }
+    }
+
+
+    async function putBidOnListing(bid, alert) {
+        try {
+            const options = {
+              method: "post",
+              headers: {
+                Authorization: `Bearer ${localStorage.token}`,
+                    "X-Noroff-API-Key": API_KEY,
+                    "Content-Type": "application/json",
+                    
+              },
+              body: JSON.stringify(
+               { amount: bid,}
+                
+              ),
+            };
+       
+            const response = await fetch(`${API_ALL_LISTINGS}/${id}/bids`, options);
+    
+    
+       if (response.ok) {
+    
+          console.log("bid posted");
+            location.reload();
+    
+          
+        } else {
+            console.log(response);
+    
+            alert.textContent = 'Ikke mulig å legge inn bud';
+            alert.classList.remove('hidden');
+            return;
+            
+            
+          
+        }
+      } catch (error) {
+        console.error(error.message);
+        console.error("Failed to bid on listing");
+        alert.textContent = 'Ikke mulig å legge inn bud';
+        alert.classList.remove('hidden');
+        return
+        
+        
+      }
+    }
+    
+
+    
+
+ 

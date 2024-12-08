@@ -38,7 +38,7 @@ export async function getMyListings() {
         };
     
 
-        const response = await fetch(`${API_ALL_PROFILES}/${localStorage.username}/listings`, options);
+        const response = await fetch(`${API_ALL_PROFILES}/${localStorage.username}/listings?_bids=true`, options);
 
         if (!response.ok) throw new Error(`HTTP error! ${response.status}`);
 
@@ -91,7 +91,7 @@ function listMyPosts(api){
 
     myListingsCont.innerHTML = "";
     let container = "";
-    //console.log(api);
+    console.log(api);
 
     for (let i = 0; i < api.length; i++) {
 
@@ -121,14 +121,13 @@ function listMyPosts(api){
       }
 
       const bids = getLastBid(api[i].bids);
-      //console.log(bids);
+      console.log(bids);
 
         container += `
        <a
     href="/enkelpost/?id=${api[i].id}"
     class="w-full max-w-md mx-auto bg-[#C9E9DA] rounded-lg shadow-lg overflow-hidden"
   >
-    <!-- Product Image -->
     <img
       src="${mediaUrl}"
       alt="${mediaAlt}"
@@ -136,26 +135,27 @@ function listMyPosts(api){
       class="w-full h-[231px] object-cover"
     />
 
-    <!-- Product Details -->
+
     <div class="p-4">
-      <!-- Title -->
+  
       <h2 class="text-center text-black text-lg font-bold">${api[i].title}</h2>
 
       <div class="flex justify-between mt-4">
-        <!-- Ends At -->
+    
         <div class="text-center">
           <p class="text-[#3C655D] text-sm font-semibold">Avslutter</p>
           <p class="text-black text-sm font-medium">${formattedTime}</p>
           <p class="text-black text-sm font-medium">${formattedDate}</p>
         </div>
 
-        <!-- Bid -->
+    
         <div class="text-center">
           <p class="text-[#3C655D] text-sm font-semibold">Bud</p>
           <p class="text-black text-sm font-medium">${bids}</p>
         </div>
+        
       </div>
-    </div>
+      </div>
   </a>
 
         `;

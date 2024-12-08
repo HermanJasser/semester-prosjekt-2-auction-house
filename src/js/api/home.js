@@ -101,7 +101,7 @@ function listListings(api) {
     href="/enkelpost/?id=${api[i].id}"
     class="w-full max-w-md mx-auto bg-[#C9E9DA] rounded-lg shadow-lg overflow-hidden"
   >
-    <!-- Product Image -->
+
     <img
       src="${mediaUrl}"
       alt="${mediaAlt}"
@@ -109,20 +109,20 @@ function listListings(api) {
       class="w-full h-[231px] object-cover"
     />
 
-    <!-- Product Details -->
+    
     <div class="p-4">
-      <!-- Title -->
+
       <h2 class="text-center text-black text-lg font-bold">${api[i].title}</h2>
 
       <div class="flex justify-between mt-4">
-        <!-- Ends At -->
+     
         <div class="text-center">
           <p class="text-[#3C655D] text-sm font-semibold">Avslutter</p>
           <p class="text-black text-sm font-medium">${formattedTime}</p>
           <p class="text-black text-sm font-medium">${formattedDate}</p>
         </div>
 
-        <!-- Bid -->
+    
         <div class="text-center">
           <p class="text-[#3C655D] text-sm font-semibold">Bud</p>
           <p class="text-black text-sm font-medium">${bids}</p>

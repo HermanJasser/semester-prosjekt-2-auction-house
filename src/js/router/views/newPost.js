@@ -27,7 +27,7 @@ import { postListingToApi } from "/src/js/api/newPost";
             const removeButton = document.createElement("button");
             removeButton.type = "button";
             removeButton.innerText = "X";
-            removeButton.className = "ml-2 mt-4 px-4 py-2 bg-red-500 text-white rounded-lg";
+            removeButton.className = "ml-2 mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600";
             removeButton.addEventListener("click", () => {
                 imgInputCont.removeChild(newImageInputWrapper);
             });

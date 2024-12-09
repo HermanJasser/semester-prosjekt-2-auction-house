@@ -253,15 +253,20 @@ async function deleteListing() {
                 const alertBidError = document.createElement('p');
                 alertBidError.classList.add('text-red-500', 'text-sm', 'font-semibold', 'text-center', 'mb-4', 'hidden');
 
+                const closeBtn = document.createElement('button');
+                closeBtn.textContent = 'Avbryt';
+                closeBtn.classList.add( 'text-red-500', 'py-2', 'px-6', 'rounded-lg', 'font-medium', 'hover:underline', 'transition-colors', 'mx-auto', 'block');
+
                 bidDiv.appendChild(creditsAvailable);
                 bidDiv.appendChild(bidInput);
                 bidDiv.appendChild(alertBidError);
                 bidDiv.appendChild(submitBtn);
+                bidDiv.appendChild(closeBtn);
                 
         
                 document.body.appendChild(bidDiv);
         
-                // Legg til en event listener for å håndtere budinnleggelse
+            
                 submitBtn.addEventListener('click', () => {
                     const bidValue = Number(bidInput.value);
                 
@@ -274,8 +279,11 @@ async function deleteListing() {
                         putBidOnListing(bidValue , alertBidError);
                     }
         
-                    // Fjern div-en etter at budet er lagt inn
                 });
+
+                closeBtn.addEventListener('click', () => {
+                    bidDiv.remove();
+                }   );
             });
     }
 
@@ -334,11 +342,20 @@ async function deleteListing() {
     
           
         } else {
-            console.log(response);
+            //console.log(response);
+            const errorData = await response.json();
+            console.log(errorData.errors[0].message)
+            if(errorData.errors[0].message == "Your bid must be higher than the current bid"){
+                alert.textContent = 'Budet ditt må være høyere enn det nåværende budet';
+                alert.classList.remove('hidden');
+                return;
+            } else{
+                alert.textContent = 'Ikke mulig å legge inn bud';
+                alert.classList.remove('hidden');
+                return;
+            }
     
-            alert.textContent = 'Ikke mulig å legge inn bud';
-            alert.classList.remove('hidden');
-            return;
+           
             
             
           

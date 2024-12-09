@@ -262,6 +262,10 @@ async function deleteListing() {
     function addListnerToBidButton() {
         const bidBtn = document.getElementById('bid-btn');
             bidBtn.addEventListener("click", async () => {
+                if(!localStorage.token){
+                    window.location.href = '/login/'; 
+                    return;
+                }
 
                
 

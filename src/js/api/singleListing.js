@@ -15,6 +15,8 @@ export async function getSingleListingFromApi(id) {
 
         addListnerToBidButton()
 
+        isSold(postsApi)
+
         
 
       
@@ -32,6 +34,25 @@ function getLastBid(bids) {
     return bids[bids.length - 1].amount; 
 }
 
+function isSold(api) {
+    const endsAtDate = new Date(api.endsAt);
+    const currentDate = new Date();
+    if(currentDate > endsAtDate){
+        const bidBtn = document.getElementById('bid-btn');
+        bidBtn.classList.add("hidden");
+
+        const soldText = document.createElement('p');
+        soldText.textContent = 'Avsluttet';
+        soldText.classList.add('text-red-500', 'text-lg', 'font-semibold', 'mb-4');
+        
+        // Sett inn <p>-taggen etter knappen
+        bidBtn.parentNode.insertBefore(soldText, bidBtn.nextSibling);
+
+        
+    }
+
+}
+
 
 function listSingleListing(api) {
     const endsAtDate = new Date(api.endsAt);
@@ -47,8 +68,8 @@ function listSingleListing(api) {
     singleListingOutput.innerHTML = "";
 
     singleListingOutput.innerHTML = `
-        <div id="image-gallery" class="relative overflow-hidden mb-4">
-            <div id="slider" class="flex transition-transform duration-500"></div>
+        <div id="image-gallery" class=" relative overflow-hidden mb-4">
+            <div id="slider" class="flex transition-transform duration-500 "></div>
             <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#3C655D] text-white w-12 h-12 text-3xl rounded-full z-10 hover:bg-[#2E5149]"><</button>
             <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#3C655D] text-white w-12 h-12 text-3xl rounded-full z-10 hover:bg-[#2E5149]">></button>
             <div id="slider-indicator" class="absolute bottom-2 right-2 bg-white px-3 py-1 rounded-md text-sm font-bold shadow-md"></div>
@@ -90,7 +111,10 @@ function listSingleListing(api) {
         const imgElement = document.createElement('img');
         imgElement.src = 'https://raw.githubusercontent.com/HermanJasser/folder-for-images/3fed7422fa0abc67ac78fbedf6bf1c87f61b47ea/img/Placeholder-_-Glossary.svg';
         imgElement.alt = 'placeholder image';
-        imgElement.className = 'w-full h-[400px] object-cover flex-shrink-0 md:h-[600px] lg:h-[700px]';
+        imgElement.style.aspectRatio = '16/9';
+        imgElement.className = ' w-full h-[300px] object-cover flex-shrink-0 lg:h-[500px]';
+        
+
         gallery.appendChild(imgElement);
     } else {
         media.forEach((image) => {
@@ -100,7 +124,8 @@ function listSingleListing(api) {
             imgElement.onerror = function () {
                 this.src = 'https://raw.githubusercontent.com/HermanJasser/folder-for-images/3fed7422fa0abc67ac78fbedf6bf1c87f61b47ea/img/Placeholder-_-Glossary.svg';
             };
-            imgElement.className = 'w-full h-[400px] object-cover flex-shrink-0 md:h-[600px] lg:h-[700px]';
+            imgElement.style.aspectRatio = '16/9';
+            imgElement.className = ' w-full h-[300px] object-cover flex-shrink-0  md:h-[500px]';
             gallery.appendChild(imgElement);
         });
     }
@@ -117,6 +142,15 @@ function listSingleListing(api) {
         gallery.style.transform = `translateX(${offset}%)`;
         indicator.textContent = `${currentIndex + 1} / ${images.length}`;
     }
+
+    function ifOneImage() {
+        if (images.length === 1) {
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+        }
+    }
+
+    ifOneImage();
 
     prevButton.addEventListener('click', () => {
         if (currentIndex > 0) {

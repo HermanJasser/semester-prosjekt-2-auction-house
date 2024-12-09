@@ -45,7 +45,10 @@ export async function getMyListings() {
         const data = await response.json();
         const api = data.data;
         if(api.length === 0){
-            myListingsCont.innerHTML = `<h2 class="text-center">Ingen annonser</h2>`;
+            myListingsCont.innerHTML = `<h2 class="text-center justify-center">Ingen annonser</h2>`;
+            myListingsCont.classList.add("flex", "justify-center", "items-center", "h-[100px]");
+            myListingsCont.classList.remove("grid", "gap-8", "sm:grid-cols-2", "lg:grid-cols-3");
+            
             return;
         } else{
             listMyPosts(api);

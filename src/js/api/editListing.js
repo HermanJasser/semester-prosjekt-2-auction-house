@@ -28,19 +28,11 @@ export async function getEditListingFormValue(id) {
 
 
 function populateEditListingForm(api){
-    const endsAtDate = new Date(api.endsAt);
-    const hours = String(endsAtDate.getUTCHours()).padStart(2, '0');
-    const minutes = String(endsAtDate.getUTCMinutes()).padStart(2, '0');
-    const day = String(endsAtDate.getUTCDate()).padStart(2, '0');
-    const month = String(endsAtDate.getUTCMonth() + 1).padStart(2, '0');
-    const year = endsAtDate.getUTCFullYear();
+   
 
-    const formattedTime = `${hours}:${minutes}`;
-    
-    const formattedDate = `${year}-${month}-${day}`;
+   
 
-    //console.log(formattedTime);
-    //console.log(editListingForm.endsAtTime.value)
+
 
     const imgArray = api.media;
 
@@ -80,8 +72,6 @@ function populateEditListingForm(api){
 
     editListingForm.img1.value = api.media[0].url;
     editListingForm.title.value = api.title;
-    editListingForm.endsAtDate.value = formattedDate;
-    editListingForm.endsAtTime.value = formattedTime;
     editListingForm.desc.value = api.description;
 }
 
@@ -89,7 +79,7 @@ function populateEditListingForm(api){
 
 const alertEditListing = document.getElementById("alert-edit-listing");
 
-export async function updateListingToApi(url, title, endsAt, desc) {
+export async function updateListingToApi(url, title, desc) {
     try {
         const options = {
           method: "put",
@@ -100,7 +90,6 @@ export async function updateListingToApi(url, title, endsAt, desc) {
           },
           body: JSON.stringify({
             title: title,
-            endsAt: endsAt,
             description: desc,
             media: url
             

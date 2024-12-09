@@ -22,6 +22,8 @@ export async function getAllListingsFromApi(page) {
           document.getElementById('neste').disabled = false;
           pageNav.classList.remove("hidden");
       }
+
+      //console.log(api);
         listListings(api);
     } catch (error) {
         listingOutput.innerHTML = "";
@@ -64,7 +66,7 @@ export async function getSearchedListingsFromApi(query,page) {
 function listListings(api) {
     listingOutput.innerHTML = "";
     let container = "";
-    console.log(api);
+   //console.log(api);
 
     for (let i = 0; i < api.length; i++) {
 

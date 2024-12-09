@@ -21,6 +21,12 @@ export default async function router(pathname = window.location.pathname) {
       case "/minside/redigerannonse/":
         await import("./views/editListing.js/");
         break;
+      case "/minside/minekjop/":
+        await import("./views/myWins.js/");
+        break;
+      case "/minside/minebud/":
+        await import("./views/myBids.js/");
+        break;
       case "/enkelpost/":
         await import("./views/singleListing.js/");
         break;

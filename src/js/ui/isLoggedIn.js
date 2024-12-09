@@ -31,3 +31,16 @@ export function redirectIfLoggedIn() {
         </a>`
     }
   }
+
+
+
+  export function isLoggedOut() {
+    const currentUrl = window.location.href;
+    //console.log(currentUrl);
+
+
+if (currentUrl.includes('/minside/') && !localStorage.token) {
+
+    window.location.href = '/'; 
+}
+  }

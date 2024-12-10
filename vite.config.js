@@ -51,13 +51,5 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-  plugins: [
-    viteImagemin({
-      gifsicle: { optimizationLevel: 7 },
-      optipng: { optimizationLevel: 7 },
-      mozjpeg: { quality: 75 },
-      svgo: {},
-    }),
-  ],
 });
 

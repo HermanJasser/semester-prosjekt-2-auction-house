@@ -33,6 +33,17 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         login: resolve(__dirname, "/login/index.html"),
+        register: resolve(__dirname, "/register/index.html"),
+        myPage: resolve(__dirname, "/minside/index.html"),
+        newPost: resolve(__dirname, "/minside/nyannonse/index.html"),
+        editProfile: resolve(__dirname, "/minside/redigerprofil/index.html"),
+        editListing: resolve(__dirname, "/minside/redigerannonse/index.html"),
+        myWins: resolve(__dirname, "/minside/minekjop/index.html"),
+        myBids: resolve(__dirname, "/minside/minebud/index.html"),
+        singleListing: resolve(__dirname, "/enkelpost/index.html"),
+        notFound: resolve(__dirname, "/404/index.html"),
+        
+
       },
     },
   },

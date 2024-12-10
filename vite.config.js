@@ -1,4 +1,4 @@
-/*import { defineConfig } from 'vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   root: '.', // Angir roten til prosjektet ditt (kan justeres hvis nødvendig)
@@ -17,32 +17,6 @@ export default defineConfig({
     },
   },
   publicDir: 'public', // Mappen for offentlige filer som ikke må bygges
-});*/
-import { defineConfig } from 'vite';
-import { resolve } from 'path';
-import viteImagemin from 'vite-plugin-imagemin';
-
-export default defineConfig({
-  base: '/', // Sørg for korrekt base-URL for distribusjon
-  publicDir: 'public', // Mappen for offentlige filer
-  build: {
-    target: 'esnext', // Støtter moderne JavaScript-funksjoner
-    outDir: 'dist',
-    emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-      },
-    },
-  },
-  resolve: {
-    alias: {
-      '@': '/src', // Forenkler imports
-    },
-  },
-  server: {
-    port: 3000,
-    open: true,
-  },
 });
+
 

@@ -41,8 +41,7 @@ export default defineConfig({
         myWins: resolve(__dirname, "/minside/minekjop/index.html"),
         myBids: resolve(__dirname, "/minside/minebud/index.html"),
         singleListing: resolve(__dirname, "/enkelpost/index.html"),
-        notFound: resolve(__dirname, "/404/index.html"),
-        
+
 
       },
     },

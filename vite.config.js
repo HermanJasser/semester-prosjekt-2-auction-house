@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: '.', // Angir roten til prosjektet ditt (kan justeres hvis nødvendig)
   build: {
+    target: 'esnext',
     outDir: 'dist', // Output-mappen for produksjonsbygget
     emptyOutDir: true, // Tømmer output-mappen før bygging
   },
@@ -12,7 +13,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-        "@": path.resolve(__dirname, "src"),
+      '@': '/src', // Forenkler imports fra "src"-mappen
     },
   },
   publicDir: 'public', // Mappen for offentlige filer som ikke må bygges

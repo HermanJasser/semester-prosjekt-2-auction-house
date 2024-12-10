@@ -24,6 +24,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+    base: '/',
   root: '.', // Rotmappen til prosjektet
   build: {
     target: 'esnext',

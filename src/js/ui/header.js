@@ -1,7 +1,5 @@
 export function createHeader() {
-  console.log("hei"); 
     const headerHTML = `
-
     <header class="bg-[#f6fffa]">
       <div
         class="flex justify-between items-center px-10 md:px-20 py-8 mx-auto max-w-7xl"

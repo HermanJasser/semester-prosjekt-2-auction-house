@@ -2,6 +2,8 @@ import "./css/style.css";
 
 import router from "./js/router";
 
+console.log("hei");
+
 
 await router(window.location.pathname);
 

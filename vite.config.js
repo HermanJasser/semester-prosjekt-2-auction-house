@@ -12,7 +12,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': '/src', // Forenkler imports fra "src"-mappen
+        "@": path.resolve(__dirname, "src"),
     },
   },
   publicDir: 'public', // Mappen for offentlige filer som ikke må bygges

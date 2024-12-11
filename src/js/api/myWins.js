@@ -1,4 +1,5 @@
 import { API_ALL_PROFILES, API_KEY } from "/src/js/ui/constants";
+import { convertTimeFormat, convertDateformat } from "/src/js/ui/convertTimeFormat";
 
 const myKjopOutput = document.getElementById("mine-kjop");
 
@@ -55,15 +56,11 @@ function listWins(api) {
             ? api[i].media[0].alt 
             : 'Placeholder image';
 
-            const endsAtDate = new Date(api[i].endsAt);
-            const hours = String(endsAtDate.getUTCHours()).padStart(2, '0');
-            const minutes = String(endsAtDate.getUTCMinutes()).padStart(2, '0');
-            const day = String(endsAtDate.getUTCDate()).padStart(2, '0');
-            const month = String(endsAtDate.getUTCMonth() + 1).padStart(2, '0');
-            const year = endsAtDate.getUTCFullYear();
-    
-            const formattedTime = `${hours}:${minutes}`;
-            const formattedDate = `${day}.${month}.${year}`;
+
+        const formattedTime = convertTimeFormat(api[i].endsAt);
+        const formattedDate = convertDateformat(api[i].endsAt);
+
+
   
           
   

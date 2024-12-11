@@ -67,9 +67,10 @@ export async function onSubmitListing(event) {
 
     
     const title = newListingForm.title.value.trim();
-    const endsAtdate = newListingForm.endsAtDate.value.trim();
+    const endsAtDate = newListingForm.endsAtDate.value.trim();
     const endsAtTime = newListingForm.endsAtTime.value.trim();
 
+    
     const desc = newListingForm.desc.value.trim();
 
     if (imageUrls.length < 1) {
@@ -78,12 +79,15 @@ export async function onSubmitListing(event) {
     } else if(!title) {
         alertNewListing.innerText = "Tittel kan ikke være tom";
         return;
-    } else if (!endsAtdate || !endsAtTime) {
+    } else if (!endsAtDate || !endsAtTime) {
         alertNewListing.innerText = "Sluttdato og tid kan ikke være tom";
         return;
     }
 
-    const endsAt = new Date(`${endsAtdate}T${endsAtTime}:00Z`).toISOString();
+
+   
+
+    const endsAt = new Date(`${endsAtDate}T${endsAtTime}:00`).toISOString();
 
      if (endsAt < new Date().toISOString()) {
         alertNewListing.innerText = "Sluttdato må være i fremtiden";

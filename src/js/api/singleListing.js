@@ -1,5 +1,6 @@
 import { API_ALL_LISTINGS, API_KEY, API_ALL_PROFILES } from "../ui/constants";
 import { id } from "/src/js/router/views/singleListing";
+import { convertTimeFormat, convertDateformat } from "/src/js/ui/convertTimeFormat";
 
 const singleListingOutput = document.getElementById("single-listing-output");
 
@@ -10,7 +11,7 @@ export async function getSingleListingFromApi(id) {
         const data = await response.json();
         const postsApi = data.data;
         listSingleListing(postsApi);
-        console.log(postsApi);
+        console.log(postsApi.bids);
         addEditDeleteButtons(postsApi);
 
         addListnerToBidButton()
@@ -55,15 +56,11 @@ function isSold(api) {
 
 
 function listSingleListing(api) {
-    const endsAtDate = new Date(api.endsAt);
-    const hours = String(endsAtDate.getUTCHours()).padStart(2, '0');
-    const minutes = String(endsAtDate.getUTCMinutes()).padStart(2, '0');
-    const day = String(endsAtDate.getUTCDate()).padStart(2, '0');
-    const month = String(endsAtDate.getUTCMonth() + 1).padStart(2, '0');
-    const year = endsAtDate.getUTCFullYear();
 
-    const formattedTime = `${hours}:${minutes}`;
-    const formattedDate = `${day}.${month}.${year}`;
+    const formattedTime = convertTimeFormat(api.endsAt);
+    const formattedDate = convertDateformat(api.endsAt);
+
+
     const bids = getLastBid(api.bids);
     singleListingOutput.innerHTML = "";
 
@@ -99,11 +96,18 @@ function listSingleListing(api) {
         
         <p class="text-[#3C655D] text-lg font-semibold">Beskrivelse</p>
         <p class="text-[#000] text-lg leading-relaxed">${api.description}</p>
+        <p class=" mt-8 mb-4 text-[#3C655D] text-lg font-semibold">Budhistorikk</p>
+        <div id="bid-history">
+            <p>Laster...</p>
+        </div>
         <div id="toast-message" class="hidden fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow-md">
              Posten ble ikke slettet.
         </div>
     `;
 
+    showBidHistory(api.bids, formattedTime, formattedDate);
+
+    
     const gallery = document.getElementById('slider');
     const media = api.media;
 
@@ -407,6 +411,63 @@ async function deleteListing() {
         
         
       }
+    }
+
+    function showBidHistory(bids) {
+        const bidHistory = document.getElementById('bid-history');
+        bidHistory.innerHTML = '';
+
+    
+
+        if (!bids || bids.length === 0) {
+            const noBids = document.createElement('p');
+            noBids.textContent = 'Ingen bud enda';
+            noBids.classList.add('text-black', 'text-lg', 'mb-4');
+            bidHistory.appendChild(noBids);
+        } else {
+            const bidHistoryOverviewCont = document.createElement('div');
+            bidHistoryOverviewCont.classList.add('flex', 'justify-between', 'items-center', 'mb-2', );
+            const amount = document.createElement('p');
+            amount.textContent = 'Bud';
+            amount.classList.add('text-[#3C655D]', 'text-lg', 'font-semibold', 'w-1/3', 'text-center');
+            const time = document.createElement('p');
+            time.textContent = 'Tid';
+            time.classList.add('text-[#3C655D]', 'text-lg', 'font-semibold', 'w-1/3', 'text-center');
+            const bidder = document.createElement('p');
+            bidder.textContent = 'Budgiver';
+            bidder.classList.add('text-[#3C655D]', 'text-lg', 'font-semibold', 'w-1/3', 'text-center');
+
+            bidHistoryOverviewCont.appendChild(amount);
+            bidHistoryOverviewCont.appendChild(time);
+            bidHistoryOverviewCont.appendChild(bidder);
+            bidHistory.appendChild(bidHistoryOverviewCont);
+            
+            bids.sort((a, b) => b.amount - a.amount);
+
+            bids.forEach((bid) => {
+                const bidCont = document.createElement('div');
+                const bidAmount = document.createElement('p');
+                const bidder = document.createElement('p');
+                bidAmount.textContent = `${bid.amount}`;
+                bidder.textContent = `${bid.bidder.name}`;
+
+                const formattedTime = convertTimeFormat(bid.created);
+                const formattedDate = convertDateformat(bid.created);
+
+                const bidTime = document.createElement('p');
+                bidTime.textContent = `${formattedTime} - ${formattedDate}`;
+                bidTime.classList.add('text-black', 'text-lg', 'w-1/3', 'text-center');
+        
+
+                bidAmount.classList.add('text-black', 'text-lg', 'w-1/3', 'text-center');
+                bidder.classList.add('text-black', 'text-lg', 'w-1/3', 'text-center');
+                bidCont.classList.add('flex', 'justify-between', 'items-center', 'mb-4', 'p-4', 'bg-[#C9E9DA]', 'rounded-lg', 'shadow-lg');
+                bidCont.appendChild(bidAmount);
+                bidCont.appendChild(bidTime);
+                bidCont.appendChild(bidder);
+                bidHistory.appendChild(bidCont);
+            });
+        }
     }
     
 

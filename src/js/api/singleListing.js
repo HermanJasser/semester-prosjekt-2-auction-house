@@ -219,7 +219,7 @@ async function deleteListing() {
               },
             };
         
-            const response = await fetch(`${API_ALL_LISTINGS}/${d}`, options);
+            const response = await fetch(`${API_ALL_LISTINGS}/${id}`, options);
        if (response.ok) {
     
           //console.log("Posten er slettet");

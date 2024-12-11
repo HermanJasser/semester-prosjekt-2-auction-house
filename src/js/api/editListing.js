@@ -21,7 +21,6 @@ export async function getEditListingFormValue(id) {
         populateEditListingForm(api);
        
     } catch (error) {
-        // Handle the error and redirect if editing fails
         console.error("Error message: " + error);
     }
 }

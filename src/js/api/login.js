@@ -22,7 +22,7 @@ export async function postLoginToApi(email, password) {
             localStorage.setItem("username", data.data.name);
             localStorage.setItem("token", data.data.accessToken);
 
-            location.href = "/";
+            location.href = "/minside/";
         } else {
 
             //const errorData = await response.json();
